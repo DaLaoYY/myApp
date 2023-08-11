@@ -1,2 +1,92 @@
-<input type="text"/>
-<button>查找</button>
+<div class="container-fluid">
+  <div class="search-wrapper">
+    <input
+      type="text"
+      (keypress)="onKeyPress($event)"
+      [(ngModel)]="phoneNumber"
+      placeholder="输入电话号码"
+    />
+    <button class="btn btn-primary" (click)="searchCustomer()">查找</button>
+  </div>
+
+  <div *ngIf="active" class="customers-container d-flex flex-wrap">
+    <div *ngIf="notFound" class="red-text">查无此人</div>
+    <div *ngIf="customer">
+      <div class="section-container">
+        <div class="sector">
+          名字:
+          <div>{{ customer.firstLastName }}</div>
+        </div>
+        <div class="sector">
+          电话:
+          <div>{{ customer.phone }}</div>
+        </div>
+        <div class="sector">
+          积分:
+          <div>{{ customer.rewardPoint }}</div>
+        </div>
+        <div class="sector mb-3">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-plus-lg"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"
+            />
+          </svg>
+          加积分：
+          <div class="button-wrapper">
+            <button class="btn btn-success" (click)="updateReward(20)">
+              +20
+            </button>
+            <button class="btn btn-success">+50</button>
+            <button class="btn btn-success">+100</button>
+            <div class="d-flex">
+              <input
+                (keypress)="onKeyPress($event)"
+                type="number"
+                class="point-input"
+                [(ngModel)]="plusPoint"
+              />
+              <button class="btn btn-success">+</button>
+            </div>
+          </div>
+        </div>
+        <div class="sector">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-dash"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"
+            />
+          </svg>
+          减积分：
+          <div class="button-wrapper">
+            <button class="btn btn-secondary">-20</button>
+            <button class="btn btn-secondary">-50</button>
+            <button class="btn btn-secondary">-100</button>
+            <div class="d-flex">
+              <input
+                (keypress)="onKeyPress($event)"
+                type="number"
+                class="point-input"
+                [(ngModel)]="minusPoint"
+              />
+              <button class="btn btn-secondary">-</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

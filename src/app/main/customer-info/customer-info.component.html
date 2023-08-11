@@ -1,1 +1,7 @@
-<p>customer-info works!</p>
+<ag-grid-angular
+  style="width: 100%; height: 100%"
+  class="ag-theme-alpine"
+  [gridOptions]="gridOption"
+  (gridReady)="onGridReady($event)"
+  [rowData]="rowData"
+></ag-grid-angular>

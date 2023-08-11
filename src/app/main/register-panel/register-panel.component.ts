@@ -1,31 +1,45 @@
 import { Component } from '@angular/core';
-import { Customer } from '../models/customers';
+import { Customer, CustomerInfo } from '../models/customers';
+import { CustomersService } from '../service/customers-service.service';
 
 @Component({
   selector: 'app-register-panel',
   templateUrl: './register-panel.component.html',
-  styleUrls: ['./register-panel.component.scss']
+  styleUrls: ['./register-panel.component.scss'],
 })
 export class RegisterPanelComponent {
-  powers = ['Really Smart', 'Super Flexible',
-  'Super Hot', 'Weather Changer'];
+  constructor(private customerSvc: CustomersService) {}
 
-model =  new Customer('', '', 0);
+  model = new Customer('', '', 0);
+  showError = false;
+  submitted = false;
 
-submitted = false;
+  onSubmit() {
+    this.model;
+    const customerInfo: CustomerInfo = {
+      firstLastName: this.model.firstLastName,
+      phone: Number(this.model.phoneNumber),
+      rewardPoint: this.model.point,
+    };
+    this.customerSvc.createNewCustomer(customerInfo).subscribe((res) => {
+      this.showError = false;
+      if (res.type === 'ERROR') {
+        this.showError = true;
+      }
+    });
+    this.submitted = true;
+  }
 
-onSubmit() { this.submitted = true; }
+  onKeyPress(event: KeyboardEvent) {
+    const inputChar = event.key;
+    const regexPattern = /^[0-9]*$/; // Only allow digits (numeric values)
 
-onNumberKeyPress(event: KeyboardEvent) {
-  const { key } = event;
-  const pattern = /^\d+$/;
-  // if()
-  return true
-}
+    if (!regexPattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
 
-newCustomer() {
-this.model = new Customer('', '', 0);
-}
-
-
+  newCustomer() {
+    this.model = new Customer('', '', 0);
+  }
 }

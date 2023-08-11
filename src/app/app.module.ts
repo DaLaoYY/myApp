@@ -9,6 +9,9 @@ import { RegisterPanelComponent } from './main/register-panel/register-panel.com
 import { ActivityPanelComponent } from './main/activity-panel/activity-panel.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CustomersService } from './main/service/customers-service.service';
+import { HttpClientModule } from '@angular/common/http';
+import { AgGridModule } from 'ag-grid-angular';
 
 @NgModule({
   declarations: [
@@ -16,15 +19,17 @@ import { FormsModule } from '@angular/forms';
     MainComponent,
     CustomerInfoComponent,
     RegisterPanelComponent,
-    ActivityPanelComponent
+    ActivityPanelComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule, 
+    AppRoutingModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    AgGridModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [CustomersService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
